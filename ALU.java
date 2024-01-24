@@ -1,6 +1,6 @@
 public class ALU {
 
-    public class ALUInstruction {
+    public static class ALUInstruction {
 
         private boolean F0;
         private boolean F1;
@@ -9,10 +9,11 @@ public class ALU {
         private boolean INVA;
         private boolean INC;
 
-        private boolean ShiftLeft;
-        private boolean ShiftRight;
+        public boolean ShiftLeft;
+        public boolean ShiftRight;
 
-        public ALUInstruction(boolean F0, boolean F1, boolean ENA, boolean ENB, boolean INVA, boolean INC, boolean ShiftLeft, boolean ShiftRight) {
+        public ALUInstruction(boolean F0, boolean F1, boolean ENA, boolean ENB, boolean INVA, boolean INC,
+                boolean ShiftLeft, boolean ShiftRight) {
             this.F0 = F0;
             this.F1 = F1;
             this.ENA = ENA;
@@ -23,8 +24,16 @@ public class ALU {
             this.ShiftRight = ShiftRight;
         }
 
-        
+        @Override
+        public String toString() {
+            return "[F0=" + (F0 ? 1 : 0) + ", F1=" + (F1 ? 1 : 0) + ", ENA=" + (ENA ? 1 : 0) + ", ENB=" + (ENB ? 1 : 0)
+                    + ", INVA=" + (INVA ? 1 : 0)
+                    + ", INC=" + (INC ? 1 : 0) + ", ShiftLeft=" + (ShiftLeft ? 1 : 0) + ", ShiftRight="
+                    + (ShiftRight ? 1 : 0) + "]";
+        }
+
     }
+
     private int A;
     private int B;
 
@@ -53,7 +62,6 @@ public class ALU {
             result = (INC ? valueA + valueB + 1 : valueA + valueB);
         }
 
-
         // Weitere Funktionen implementieren wie AND, OR etc.
         // ...
 
@@ -69,14 +77,29 @@ public class ALU {
         this.B = B;
     }
 
+    public int execute(ALUInstruction aluInstruction) {
+        return execute(aluInstruction.F0, aluInstruction.F1, aluInstruction.ENA, aluInstruction.ENB,
+                aluInstruction.INVA, aluInstruction.INC);
+    }
+
     // Ein einfaches Testbeispiel
     public static void main(String[] args) {
         ALU alu = new ALU();
         alu.setA(5);
         alu.setB(10);
-        
+
         // Beispiel: Führe eine Addition aus (F0=1, F1=1, ENA=1, ENB=1, INVA=0, INC=0)
         int result = alu.execute(true, true, true, true, true, true);
         System.out.println("Ergebnis der Addition A+B: " + result);
+    }
+
+    public boolean getN() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getN'");
+    }
+
+    public boolean getZ() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getZ'");
     }
 }

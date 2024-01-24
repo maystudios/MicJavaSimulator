@@ -1,7 +1,7 @@
 public class Register {
 
     public static enum RegisterType {
-        MAR, MDR, PC, MBR, SP, LV, CPP, TOS, OPC, H;
+        MAR, MDR, PC, MBR, SP, LV, CPP, TOS, OPC, H, MicroCodeRegisterAddress;
     }
 
     private int value;
@@ -19,8 +19,12 @@ public class Register {
     public int read() {
         return value;
     }
-    
+
     public void putOn(Bus bus) {
         bus.write(value);
+    }
+
+    public void writeFrom(Bus bus) {
+        value = bus.read();
     }
 }
